@@ -108,4 +108,14 @@ As a user I want to...
 
 #### Wireframes
 
+<img src="./public/images/profile-wireframe.jpg" alt="crude mockup drawing of profile layout" style="height: 50vmin">
+<br>
+<br>
+<img src="./public/images/timeline-wireframe.jpg" alt="crude mockup drawing of timeline layout" style="height: 50vmin">
+<br>
+<br>
+<img src="./public/images/search-wireframe.jpg" alt="crude mockup drawing of search layout" style="height: 50vmin">
+<br>
+<br>
+
 #### ERD
