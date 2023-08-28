@@ -3,10 +3,12 @@ const { Schema, model } = mongoose
 
 const postSchema = new Schema({
     title: {
-        type: String
+        type: String,
+        required: true
     },
     body: {
-        type: String
+        type: String,
+        required: true
     },
     owner: {
         type: Schema.Types.ObjectId,
