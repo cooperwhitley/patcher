@@ -4,9 +4,9 @@ body {
     color: rgb(43, 43, 43);
   }
   
-  a {
+a {
     color: #00B7FF;
-  }
+}
   
 .index-body {
     text-align: justify;
@@ -16,8 +16,17 @@ body {
 h1 {
     text-align: center;
     margin-top: 15vmin;
+    margin-bottom: 0;
     font-size: 5vmin;
     font-weight: 900;
+}
+
+#index-logo {
+    display: block;
+    width: 75vmin;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5vmin;
 }
 
 #index-site-name {
