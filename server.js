@@ -5,6 +5,7 @@ require('./utils/connection');
 const middleware = require('./utils/middleware.js');
 
 // declare routers via controllers
+const authRouter = require('./controllers/authControllers')
 
 
 const app = express();
@@ -21,6 +22,7 @@ middleware(app);
 app.get('/', (req, res) => {
     res.render('index', {title: 'patcher'})
 })
+app.use('/', authRouter)
 
 
 // server listener
