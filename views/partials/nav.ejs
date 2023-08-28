@@ -3,6 +3,10 @@
         <a href="/" id="logo-link"><img id="nav-logo" src="logo/patcher-logo-white.png"></a>
         <a href="" id="patchbay-link" class="non-logo-links">patchbay</a>
         <a href="" id="patchlist-link" class="non-logo-links">patchlist</a>
-        <a href="/auth/google" id="user-link" class="non-logo-links">log in with google</a>
+        <% if (!user) {%>
+            <a href="/auth/google" id="login-link" class="non-logo-links">log in with google</a>
+        <% } else { %>
+            <a href="" id="user-link" class="non-logo-links">profile</a>
+        <% } %>
     </nav>
 </header>
