@@ -3,8 +3,8 @@ const morgan = require('morgan');
 require('dotenv').config();
 const methodOverride = require('method-override');
 const session = require('express-session');
-// const passport = require('passport');
-// require('./passport');
+const passport = require('passport');
+require('./passport');
 
 const middleware = (app) => {
     console.log('Middleware function ran')
@@ -19,12 +19,12 @@ const middleware = (app) => {
         resave: false,
         saveUninitialized: true
     }))
-    // app.use(passport.initialize())
-    // app.use(passport.session())
-    // app.use((req, res, next) => {
-    //     res.locals.user = req.user
-    //     next()
-    // })
+    app.use(passport.initialize())
+    app.use(passport.session())
+    app.use((req, res, next) => {
+        res.locals.user = req.user
+        next()
+    })
 }
 
 module.exports = middleware
