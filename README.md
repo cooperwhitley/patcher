@@ -119,3 +119,5 @@ As a user I want to...
 <br>
 
 #### ERD
+
+<img src="./public/images/erd.png" alt="erd showing relationship between profiles, posts, comments, and endorsements" style="height: 50vmin">
