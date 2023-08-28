@@ -1,0 +1,38 @@
+#header-nav {
+    width: 100vw;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nav-logo {
+    height: 7vmin;
+    background-color: none;
+    transition: background-color 300ms ease, filter 300ms ease;
+}
+
+#nav-logo:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+    filter: invert(100%);
+    transition: background-color 500ms ease, filter 500ms ease;
+}
+
+.non-logo-links {
+    color: white;
+    text-decoration: none;
+    background-color: none;
+    transition: color 300ms ease, background-color 300ms ease;
+    max-height: 7vmin;
+    padding-top: 1.75vmin;
+    padding-bottom: 3.5vmin;
+    padding-left: 2vmin;
+    padding-right: 2vmin;
+}
+
+.non-logo-links:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.75);
+    transition: color 500ms ease, background-color 500ms ease;
+}
+
