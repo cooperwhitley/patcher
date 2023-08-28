@@ -18,6 +18,9 @@ app.set(`view engine`, `ejs`);
 middleware(app);
 
 // routes
+app.get('/', (req, res) => {
+    res.render('index', {title: 'patcher'})
+})
 
 
 // server listener

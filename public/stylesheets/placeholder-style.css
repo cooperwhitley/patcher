@@ -1,0 +1,71 @@
+body {
+    font: 3vmin "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0 auto;
+    color: rgb(43, 43, 43);
+  }
+  
+  a {
+    color: #00B7FF;
+  }
+  
+.index-body {
+    text-align: justify;
+    margin: 7vmin 15vmin;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 15vmin;
+    font-size: 5vmin;
+    font-weight: 900;
+}
+
+#index-site-name {
+    font-family: 'Maven Pro', sans-serif;
+    --bg-size: 1000%;
+    --color-one: rgb(43, 43, 43);
+    --color-two: rgb(0, 153, 200);
+    --color-three: orange;
+    --color-four: red;
+    --color-five: rgb(219, 219, 4);
+    --color-six: rgb(12, 231, 12);
+    display: block;
+    font-size: 8vmin;
+    font-weight: 900;
+    letter-spacing: 1.25vmin;
+    background: linear-gradient(
+        90deg,
+        var(--color-one),
+        var(--color-two),
+        var(--color-two),
+        var(--color-one),
+        var(--color-one),
+        var(--color-three),
+        var(--color-three),
+        var(--color-one),
+        var(--color-one),
+        var(--color-four),
+        var(--color-four),
+        var(--color-one),
+        var(--color-one),
+        var(--color-five),
+        var(--color-five),
+        var(--color-one),
+        var(--color-one),
+        var(--color-six),
+        var(--color-six),
+        var(--color-one)
+    ) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: move-title-bg 300s infinite linear;
+}
+
+
+
+@keyframes move-title-bg {
+    to {
+        background-position: var(--bg-size) 0;
+    }
+}

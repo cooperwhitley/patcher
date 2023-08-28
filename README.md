@@ -1,5 +1,6 @@
-# patcher
-###### by Cooper Whitley
+<img src="./public/images/patcher-logo-white-semi-opaque.png" style="width: 100vw; text-align: center;" alt="logo, text says patcher, and cables are coming out of the p and the r looping to the top and bottom respectively, with TRS cable style endings.">
+
+<h1 style="border: none; text-align: center; margin-top: 0; letter-spacing: 2vmin; font-size: 4vmin;">by cooper whitley</h1>
 
 ## Intro
 
@@ -17,7 +18,7 @@ patcher is a professional social network aimed at the audio industry. It aims to
 #### How did we get here?
 
 <br>
-<img src="https://media.giphy.com/media/U4vOYy8hFTmbzfMELK/giphy.gif" style="display: block;">
+<img src="https://media.giphy.com/media/U4vOYy8hFTmbzfMELK/giphy.gif" style="display: block; margin-left: auto; margin-right: auto;" alt="gif of david byrne dancing from the once in a lifetime music video">
 <br>
 <br>
 The audio industry has modernized in many ways, except in one of the most important. Finding work and finding the right people for the job is a process that can be excrutiating, as it is almost entirely still word of mouth based networking that forms the baseline of the industry. Aside from gear forums, there's also no good way to form an online community for this group, and the goal here is to enable all these things to be conducted in one central location. No more settling for the only session guitarist you know, no more getting skipped over because people have no way to find your work.
