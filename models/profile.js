@@ -84,10 +84,10 @@ const profileSchema = new Schema({
     endorsements: [endorsementSchema]
 })
 
-
+const Profile = model('Profile', profileSchema)
 
 module.exports = {
-    profileSchema,
+    Profile,
     jobList,
     cityList
 }
