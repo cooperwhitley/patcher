@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const profileCtrl = require('../controllers/profileControllers')
 
 // define our passport oauth strategy
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -26,6 +27,13 @@ passport.use(new GoogleStrategy(
                 googleId: profile.id,
                 email: profile.emails[0].value,
                 avatar: profile.photos[0].value
+            })
+            // successfully calls profileCtrl.create
+            await profileCtrl.create({
+                // these args are not getting passed as the request
+                owner: user._id,
+                email: user.email,
+                avatar: user.avatar
             })
             return cb(null, user)
         } catch (err) {
