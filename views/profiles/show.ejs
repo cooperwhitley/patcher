@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<img src="<%= profile.avatar %>">
+<h1><%= profile.name %></h1>
+<h4><%= profile.email %></h4>
+<% if (profile.owner?._id.equals(user?._id)) { %>
+    <button type="button" class="btn btn-success"><a href="">edit profile</a></button>
+<% } %>
+
+<%- include('../partials/footer') %>
