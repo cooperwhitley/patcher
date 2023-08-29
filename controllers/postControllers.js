@@ -27,7 +27,21 @@ router.get('/new', checkLogin, (req, res) => {
 
 // delete
 
-
+router.delete('/:id', checkLogin, (req, res) => {
+    Post.findById(req.params.id)
+        .then(post => {
+            if (req.user && post.owner == req.user.id) {
+                return post.deleteOne()
+            } else {
+                res.send('something went wrong, could not delete')
+            }
+        })
+        .then(data => {
+            console.log('returned from deleteOne', data)
+            res.redirect('/posts')
+        })
+        .catch(error => console.error)
+})
 
 // update
 
