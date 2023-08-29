@@ -25,16 +25,8 @@ router.get('/new', checkLogin, (req, res) => {
 
 
 // create
+// see: ../utils/passport
 
-function create(req, res) {
-    console.log('this is the req body', req.body);
-    Profile.Profile.create(req.body)
-        .then(profileDoc => {
-            console.log('this is the profile returned from the db', profileDoc)
-            return
-        })
-        .catch(error => console.error)
-}
 
 // edit
 
@@ -46,7 +38,4 @@ router.get('/:id', (req, res) => {
 
 })
 
-module.exports = {
-    router,
-    create
-}
+module.exports = router
