@@ -12,9 +12,6 @@ const userSchema = new Schema({
     },
     email: String,
     avatar: String,
-    hasProfile: {
-        type: Boolean
-    },
     profile: {
         type: Schema.Types.ObjectId,
         ref: 'Profile'
