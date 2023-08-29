@@ -1,6 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
-const profileCtrl = require('../controllers/profileControllers')
+const Profile = require('../models/profile')
 
 // define our passport oauth strategy
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -28,13 +28,21 @@ passport.use(new GoogleStrategy(
                 email: profile.emails[0].value,
                 avatar: profile.photos[0].value
             })
-            // successfully calls profileCtrl.create
-            await profileCtrl.create({
-                // these args are not getting passed as the request
-                owner: user._id,
-                email: user.email,
-                avatar: user.avatar
+            // grab newly created user and store it in newUser
+            let newUser = await User.findOne({googleId: profile.id})
+            console.log(newUser)
+            // create a new profile with owner set as newUser and defaults set by the same
+            profile = await Profile.Profile.create({
+                owner: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                avatar: newUser.avatar
             })
+            // grab newly created profile and store it in newProfile
+            let newProfile = await Profile.Profile.findOne({owner: newUser._id})
+            // add newProfile id to newUser to create bidirectional ownership link
+            await newUser.updateOne({profile: newProfile._id})
+            console.log(newProfile)
             return cb(null, user)
         } catch (err) {
             return cb(err)
