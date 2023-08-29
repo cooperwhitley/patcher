@@ -25,6 +25,7 @@ router.get('/new', checkLogin, (req, res) => {
 
 
 // create
+// handled on first login
 // see: ../utils/passport
 
 
@@ -35,7 +36,12 @@ router.get('/new', checkLogin, (req, res) => {
 // show
 
 router.get('/:id', (req, res) => {
-
+    Profile.Profile.findOne({owner: req.params.id})
+        .then(profile => {
+            console.log('found this profile', profile)
+            res.render('profiles/show', {profile, title: `${profile.name}`})
+        })
+        .catch(error => console.error)
 })
 
 module.exports = router
