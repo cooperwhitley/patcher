@@ -14,7 +14,12 @@
             <h5 class="card-title"><%= post.owner.name %></h5>
             <h6 class="card-title"><%= post.title %></h6>
             <p class="card-text"><%= post.body %></p>
-            <a href="/posts/<%= post._id %>" class="card-link">view patch</a>
+            <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
+            <% if (post.owner?._id.equals(user?._id)) { %>
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                    <input type="submit" class="btn btn-danger" value="delete patch">
+                </form>
+            <% } %>
         </div>
     </div>
 <% }) %>
