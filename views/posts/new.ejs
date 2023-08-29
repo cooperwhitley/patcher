@@ -1,16 +1,15 @@
-<%- include('./partials/header') %>
-<%- include('./partials/nav') %>
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
 
 <div class="container-sm">
     <form action="/posts" method="POST">
         <fieldset>
-            <legend>make a patch</legend>
-            <label class="form-label">title</label>
-            <input type="text" name="title" class="form-control">
-            <label class="form-label">body</label>
-            <textarea name="body" class="form-control" rows="5"></textarea>
+            <legend>new patch</legend>
+            <input type="text" name="title" placeholder="patch title" class="form-control">
+            <textarea name="body" class="form-control" placeholder="showcase your writing skills here" rows="5" maxlength="240"></textarea>
+            <input type="submit" value="patch it!" class="btn btn-success">
         </fieldset>
     </form>
 </div>
 
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>

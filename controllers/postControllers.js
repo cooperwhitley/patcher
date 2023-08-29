@@ -11,6 +11,7 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
     Post.find({})
+        .populate('owner')
         .then(posts => {
             console.log('found these posts', posts)
             res.render('posts/index', {posts: posts, title: 'patchbay'})
@@ -52,5 +53,15 @@ router.post('/', checkLogin, (req, res) => {
 
 
 // show
+
+router.get('/:id', (req, res) => {
+    Post.findById(req.params.id)
+        .populate('owner')
+        .then(post => {
+            console.log('found this post', post)
+            res.render('posts/show', {post, title: `${post.owner.name}: ${post.title}`})
+        })
+        .catch(error => console.error)
+})
 
 module.exports = router

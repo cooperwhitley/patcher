@@ -6,6 +6,7 @@ const middleware = require('./utils/middleware.js');
 
 // declare routers via controllers
 const authRouter = require('./controllers/authControllers')
+const postRouter = require('./controllers/postControllers')
 
 
 const app = express();
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
     res.render('index', {title: 'patcher'})
 })
 app.use('/', authRouter)
-
+app.use('/posts/', postRouter)
 
 // server listener
 const PORT = process.env.PORT
