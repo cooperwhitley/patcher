@@ -23,17 +23,19 @@
                 <input type="submit" value="add patch" class="btn btn-success">
             </fieldset>
         </form>
+    <% } else { %>
+        <h5 class="card-title"><a href="/auth/google">log in</a> to join the conversation!</h5>
     <% } %>
 </div>
 <% if (post.comments.length) { %>
     <% post.comments.forEach(comment => { %>
         <div class="card w-75">
             <div class="card-body">
-                <img src="<%= comment.owner.avatar %>" alt="<%= comment.owner.name %>'s profile picture">
-                <a href="/profiles/<%= comment.owner._id %>"><h5 class="card-title"><%= comment.owner.name %></h5></a>
+                <img src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s profile picture">
+                <a href="/profiles/<%= comment.author._id %>"><h5 class="card-title"><%= comment.author.name %></h5></a>
                 <p class="card-text"><%= comment.note %></p>
-                <% if (comment.owner?._id.equals(user?._id)) { %>
-                    <form action="/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                <% if (comment.author?._id.equals(user?._id)) { %>
+                    <form action="/comments/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST">
                         <input type="submit" class="btn btn-danger" value="delete patch">
                     </form>
                 <% } %>
