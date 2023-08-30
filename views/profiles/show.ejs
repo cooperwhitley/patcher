@@ -22,7 +22,9 @@
 <% } %>
 
 <div class="card w-75">
-    <% if (user && user.id != profile.owner) { %>
+    <% let alreadyEndorsed = false %>
+    <% if (profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
+    <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
         <form action="/endorsements/<%= profile._id %>" method="POST">
             <fieldset>
                 <label class="form-label">endorse <%= profile.name %></label>
