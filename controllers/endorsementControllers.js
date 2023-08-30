@@ -9,7 +9,7 @@ const router = express.Router()
 router.post('/:profileId', checkLogin, (req, res) => {
 
     req.body.author = req.user._id
-    Profile.findById(req.params.profileId)
+    Profile.Profile.findById(req.params.profileId)
         .then(profile => {
             profile.endorsements.push(req.body)
 
@@ -28,7 +28,7 @@ router.delete('/:profileId/:endorsementId', checkLogin, (req, res) => {
     const pId = req.params.profileId
     const eId = req.params.endorsementId
 
-    Profile.findById(pId)
+    Profile.Profile.findById(pId)
         .then(profile => {
             const theEndorsement = profile.endorsements.id(eId)
 
