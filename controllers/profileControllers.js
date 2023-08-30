@@ -59,6 +59,7 @@ router.get('/edit/:id', checkLogin, (req, res) => {
 
 router.get('/:id', (req, res) => {
     Profile.Profile.findOne({owner: req.params.id})
+        .populate('endorsements.author')
         .then(profile => {
             Post.find({owner: profile.owner})
                 .then(posts => {
