@@ -1,4 +1,5 @@
 const mongoose = require('../utils/connection')
+const commentSchema = require('./comment')
 const { Schema, model } = mongoose
 
 const postSchema = new Schema({
@@ -13,7 +14,8 @@ const postSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    comments: [commentSchema]
 }, { timestamps: true})
 
 const Post = model('Post', postSchema)
