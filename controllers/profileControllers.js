@@ -11,10 +11,8 @@ const router = express.Router()
 
 
 // new
-
-router.get('/new', checkLogin, (req, res) => {
-    res.render('profiles/new', {title: 'make your profile'})
-})
+// handled on first login
+// see: ../utils/passport
 
 // delete
 
@@ -31,7 +29,15 @@ router.get('/new', checkLogin, (req, res) => {
 
 // edit
 
-
+router.get('/edit/:id', checkLogin, (req, res) => {
+    Profile.findById(req.params.id)
+    .then(profile => {
+        console.log('found this profile', profile)
+        
+        res.render('profiles/edit', { profile, title: `Edit ${profile.name}`})
+    })
+    .catch(error => console.error)
+})
 
 // show
 
@@ -39,7 +45,7 @@ router.get('/:id', (req, res) => {
     Profile.Profile.findOne({owner: req.params.id})
         .then(profile => {
             console.log('found this profile', profile)
-            res.render('profiles/show', {profile, title: `${profile.name}`})
+            res.render('profiles/show', {profile, title: `patcher - ${profile.name}`})
         })
         .catch(error => console.error)
 })
