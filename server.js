@@ -8,6 +8,8 @@ const middleware = require('./utils/middleware.js');
 const authRouter = require('./controllers/authControllers')
 const postRouter = require('./controllers/postControllers')
 const profileRouter = require('./controllers/profileControllers')
+const commentRouter = require('./controllers/commentControllers')
+const endorsementRouter = require('./controllers/endorsementControllers')
 
 
 const app = express();
@@ -27,6 +29,8 @@ app.get('/', (req, res) => {
 app.use('/', authRouter)
 app.use('/posts/', postRouter)
 app.use('/profiles/', profileRouter)
+app.use('/comments/', commentRouter)
+app.use('/endorsements/', endorsementRouter)
 
 // server listener
 const PORT = process.env.PORT
