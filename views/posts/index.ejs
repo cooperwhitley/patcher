@@ -11,7 +11,7 @@
     <div class="card w-75">
         <div class="card-body">
             <img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture">
-            <h5 class="card-title"><%= post.owner.name %></h5>
+            <a href="/profiles/<%= post.owner._id %>"><h5 class="card-title"><%= post.owner.name %></h5></a>
             <h6 class="card-title"><%= post.title %></h6>
             <p class="card-text"><%= post.body %></p>
             <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
