@@ -4,22 +4,31 @@
 <div class="container-sm">
     <form action="/profiles/<%= profile._id %>?_method=PATCH" method="POST">
         <fieldset>
+            <br>
             <legend>edit profile</legend>
+            <br>
             <label class="form-label">name</label>
             <input type="text" name="name" value="<%= profile.name %>" class="form-control">
+            <br>
             <label class="form-label">secondary email</label>
             <input type="text" name="secondEmail" placeholder="secondary email" value="<%= profile.secondEmail %>" class="form-control">
+            <br>
             <label class="form-label">links</label>
             <input type="text" name="websites[0]" placeholder="link to website or other social media" value="<%= profile.websites[0] %>" class="form-control">
+            <br>
             <input type="text" name="websites[1]" placeholder="link to website or other social media" value="<%= profile.websites[1] %>" class="form-control">
+            <br>
             <input type="text" name="websites[2]" placeholder="link to website or other social media" value="<%= profile.websites[2] %>" class="form-control">
+            <br>
             <label class="form-label">phone number</label>
             <input type="number" name="phoneNum" placeholder="phone number" value="<%= profile.phoneNum %>" class="form-control">
+            <br>
             <label class="form-label">account type</label>
             <select name="accountType" class="form-select">
                 <option value="individual">individual</option>
                 <option value="business">business</option>
             </select>
+            <br>
             <label class="form-label">jobs (control click to select multiple)</label>
             <select name="jobs" class="form-select" multiple>
                 <% jobList.forEach(job => { %>
@@ -31,6 +40,7 @@
                     ><%= job %></option>
                 <% }) %>
             </select>
+            <br>
             <label class="form-label">location</label>
             <select name="location" class="form-select">
                 <% cityList.forEach(city => { %>
@@ -42,8 +52,10 @@
                     ><%= city %></option>
                 <% }) %>
             </select>
+            <br>
             <label class="form-label">bio</label>
             <textarea name="bio" class="form-control" placeholder="bio" rows="5" maxlength="240"><%= profile.bio %></textarea>
+            <br>
             <input type="submit" value="update profile" class="btn btn-success">
         </fieldset>
     </form>
