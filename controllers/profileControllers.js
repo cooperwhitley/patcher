@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config
 
 const Profile = require('../models/profile')
+const Post = require('../models/post')
 const checkLogin = require('../utils/ensureLoggedIn')
 
 const router = express.Router()
@@ -24,17 +25,18 @@ router.patch('/:id', checkLogin, (req, res) => {
     Profile.Profile.findById(req.params.id)
         .then(profile => {
             if (req.user && profile.owner == req.user.id) {
-                profile.updateOne(req.body)
-                res.redirect(`/profiles/${profile.id}`)
+                return profile.updateOne(req.body)
             } else {
                 res.send('something went wrong, could not edit')
             }
         })
-        // .then(data => {
-        //     console.log('what is returned from updateOne', data)
-        // })
+        .then(data => {
+                console.log('what is returned from updateOne', data)
+                res.redirect(`/profiles/${req.user._id}`)
+        })
         .catch(error => console.error)
 })
+
 
 // create
 // handled on first login
@@ -58,8 +60,12 @@ router.get('/edit/:id', checkLogin, (req, res) => {
 router.get('/:id', (req, res) => {
     Profile.Profile.findOne({owner: req.params.id})
         .then(profile => {
-            console.log('found this profile', profile)
-            res.render('profiles/show', {profile, title: `patcher - ${profile.name}`})
+            Post.find({owner: profile.owner})
+                .then(posts => {
+                    console.log('found this profile', profile)
+                    console.log('and these posts', posts)
+                    res.render('profiles/show', {profile, posts, title: `patcher - ${profile.name}`})
+                })
         })
         .catch(error => console.error)
 })
