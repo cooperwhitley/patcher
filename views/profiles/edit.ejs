@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<div class="container-sm">
+    <form action="/profiles/<%= profile._id %>?_method=PATCH" method="POST">
+        <fieldset>
+            <legend>edit profile</legend>
+            <label class="form-label">name</label>
+            <input type="text" name="name" value="<%= profile.name %>" class="form-control">
+            <label class="form-label">secondary email</label>
+            <input type="text" name="secondEmail" placeholder="secondary email" value="<%= profile.secondEmail %>" class="form-control">
+            <label class="form-label">links</label>
+            <input type="text" name="websites[0]" placeholder="link to website or other social media" value="<%= profile.websites[0] %>" class="form-control">
+            <input type="text" name="websites[1]" placeholder="link to website or other social media" value="<%= profile.websites[1] %>" class="form-control">
+            <input type="text" name="websites[2]" placeholder="link to website or other social media" value="<%= profile.websites[2] %>" class="form-control">
+            <label class="form-label">phone number</label>
+            <input type="number" name="phoneNum" placeholder="phone number" value="<%= profile.phoneNum %>" class="form-control">
+            <label class="form-label">account type</label>
+            <select name="accountType" class="form-select">
+                <option value="individual">individual</option>
+                <option value="business">business</option>
+            </select>
+            <label class="form-label">jobs (control click to select multiple)</label>
+            <select name="jobs" class="form-select" multiple>
+                <% jobList.forEach(job => { %>
+                    <option 
+                    value="<%= job %>"
+                    <% if ( profile.jobs.includes(job) ) { %>
+                        selected
+                    <% } %>
+                    ><%= job %></option>
+                <% }) %>
+            </select>
+            <label class="form-label">location</label>
+            <select name="location" class="form-select">
+                <% cityList.forEach(city => { %>
+                    <option 
+                    value="<%= city %>"
+                    <% if ( profile.location == city ) { %>
+                        selected
+                    <% } %>
+                    ><%= city %></option>
+                <% }) %>
+            </select>
+            <label class="form-label">bio</label>
+            <textarea name="bio" class="form-control" placeholder="bio" rows="5" maxlength="240"><%= profile.bio %></textarea>
+            <input type="submit" value="update profile" class="btn btn-success">
+        </fieldset>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>
