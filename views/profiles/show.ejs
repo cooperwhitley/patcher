@@ -3,9 +3,37 @@
 
 <img src="<%= profile.avatar %>">
 <h1><%= profile.name %></h1>
+<h4><%= profile.jobs %></h4>
+<h4><%= profile.location %></h4>
 <h4><%= profile.email %></h4>
+<h4><%= profile.secondEmail %></h4>
+<h4><%= profile.phoneNum %></h4>
+
+<% profile.websites.forEach(website =>{ %>
+    <% if (website.length) { %>
+        <a href="<%= website %>" target="_blank"><%= website %></a>
+    <% } %>
+<% }) %>
+
+<p><%= profile.bio %></p>
+
 <% if (profile.owner?._id.equals(user?._id)) { %>
-    <button type="button" class="btn btn-success"><a href="/profiles/edit/<%= profile._id %>">edit profile</a></button>
+    <a href="/profiles/edit/<%= profile._id %>"><button type="button" class="btn btn-success">edit profile</button></a>
 <% } %>
+
+<% posts.forEach(post => { %>
+    <div class="card w-75">
+        <div class="card-body">
+            <h6 class="card-title"><%= post.title %></h6>
+            <p class="card-text"><%= post.body %></p>
+            <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
+            <% if (post.owner?._id.equals(user?._id)) { %>
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                    <input type="submit" class="btn btn-danger" value="delete patch">
+                </form>
+            <% } %>
+        </div>
+    </div>
+<% }) %>
 
 <%- include('../partials/footer') %>
