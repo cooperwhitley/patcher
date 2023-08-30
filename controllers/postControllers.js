@@ -71,6 +71,7 @@ router.post('/', checkLogin, (req, res) => {
 router.get('/:id', (req, res) => {
     Post.findById(req.params.id)
         .populate('owner')
+        .populate('comments.author')
         .then(post => {
             console.log('found this post', post)
             res.render('posts/show', {post, title: `${post.owner.name}: ${post.title}`})
