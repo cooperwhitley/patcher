@@ -21,6 +21,37 @@
     <a href="/profiles/edit/<%= profile._id %>"><button type="button" class="btn btn-success">edit profile</button></a>
 <% } %>
 
+<div class="card w-75">
+    <% if (user && user.id != profile.owner) { %>
+        <form action="/endorsements/<%= profile._id %>" method="POST">
+            <fieldset>
+                <label class="form-label">endorse <%= profile.name %></label>
+                <input type="text" class="form-control mb-1" name="note" maxlength="240" placeholder="endorsement">
+                <input type="submit" value="add endorsement" class="btn btn-success">
+            </fieldset>
+        </form>
+    <% } else if (!user) { %>
+        <h5 class="card-title"><a href="/auth/google">log in</a> to endorse <%= profile.name %>!</h5>
+    <% } %>
+</div>
+
+<% if (profile.endorsements.length) { %>
+    <% profile.endorsements.forEach(endorsement => { %>
+        <div class="card w-75">
+            <div class="card-body">
+                <img src="<%= endorsement.author.avatar %>" alt="<%= endorsement.author.name %>'s profile picture">
+                <a href="/profiles/<%= endorsement.author._id %>"><h5 class="card-title"><%= endorsement.author.name %></h5></a>
+                <p class="card-text"><%= endorsement.note %></p>
+                <% if (endorsement.author?._id.equals(user?._id)) { %>
+                    <form action="/endorsements/<%= profile._id %>/<%= endorsement._id %>?_method=DELETE" method="POST">
+                        <input type="submit" class="btn btn-danger" value="delete patch">
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    <% }) %>
+<% } %>
+
 <% posts.forEach(post => { %>
     <div class="card w-75">
         <div class="card-body">
