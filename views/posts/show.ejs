@@ -14,5 +14,32 @@
         <% } %>
     </div>
 </div>
-
+<div class="card w-75">
+    <% if (user) { %>
+        <form action="/comments/<%= post._id %>" method="POST">
+            <fieldset>
+                <label class="form-label">add to this patch chain!</label>
+                <input type="text" class="form-control mb-1" name="note" maxlength="240" placeholder="comment">
+                <input type="submit" value="add patch" class="btn btn-success">
+            </fieldset>
+        </form>
+    <% } %>
+</div>
+<% if (post.comments.length) { %>
+    <% post.comments.forEach(comment => { %>
+        <div class="card w-75">
+            <div class="card-body">
+                <img src="<%= comment.owner.avatar %>" alt="<%= comment.owner.name %>'s profile picture">
+                <a href="/profiles/<%= comment.owner._id %>"><h5 class="card-title"><%= comment.owner.name %></h5></a>
+                <p class="card-text"><%= comment.note %></p>
+                <% if (comment.owner?._id.equals(user?._id)) { %>
+                    <form action="/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                        <input type="submit" class="btn btn-danger" value="delete patch">
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    <% }) %>
+<% } %>
+    
 <%- include('../partials/footer') %>
