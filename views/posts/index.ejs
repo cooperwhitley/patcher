@@ -2,32 +2,38 @@
 <%- include('../partials/nav') %>
 
 <div>
-    <h1>patchbay</h1>
+    <h1 id="patchbay-title">patchbay</h1>
 </div>
 
-<button type="button" class="btn btn-success"><a href="/posts/new">make a patch</a></button>
+<a href="/posts/new" class="post-btn">
+    <button type="button" class="btn btn-success post-btn-btn">
+        <p class="post-btn-text">+</p>
+    </button>
+</a>
 
-<% posts.forEach(post => { %>
-    <div class="card w-75">
-        <div class="card-body">
-            <img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture">
-            <a href="/profiles/<%= post.owner._id %>"><h5 class="card-title"><%= post.owner.name %></h5></a>
-            <h6 class="card-title"><%= post.title %></h6>
-            <p class="card-text"><%= post.body %></p>
-            <% if (post.spotify) { %>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="50%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            <% } %>
-            <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
-            <% if (user && !(post.likes.includes(user._id))) { %>
-                
-            <% } %>
-            <% if (post.owner?._id.equals(user?._id)) { %>
-                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                    <input type="submit" class="btn btn-danger" value="delete patch">
-                </form>
-            <% } %>
+<section class="post-list">
+    <% posts.forEach(post => { %>
+        <div class="card">
+            <div class="card-body">
+                <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
+                <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+                <p class="card-text post-body"><%= post.body %></p>
+                <% if (post.spotify) { %>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
+                <% } %>
+                <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">view patch chain</a>
+                <% if (user && !(post.likes.includes(user._id))) { %>
+                    <form action="" method="POST"></form>
+                <% } %>
+                <% if (post.owner?._id.equals(user?._id)) { %>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-post-btn">
+                        <input type="submit" class="btn btn-danger" value="delete patch">
+                    </form>
+                <% } %>
+            </div>
         </div>
-    </div>
-<% }) %>
+    <% }) %>
+</section>
+
 
 <%- include('../partials/footer') %>
