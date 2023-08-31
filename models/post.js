@@ -16,6 +16,9 @@ const postSchema = new Schema({
         ref: 'User'
     },
     comments: [commentSchema],
+    spotify: {
+        type: String
+    },
     likes: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
