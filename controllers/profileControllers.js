@@ -22,6 +22,11 @@ const router = express.Router()
 // update
 
 router.patch('/:id', checkLogin, (req, res) => {
+    for (i = 0; i < req.body.websites.length; i++) {
+        if (req.body.websites[i].length){ 
+            req.body.websites[i] = ((req.body.websites[i].indexOf('://') === -1) && (req.body.websites[i].indexOf('mailto:') === -1) ) ? 'http://' + req.body.websites[i] : req.body.websites[i]
+        }
+    }
     Profile.Profile.findById(req.params.id)
         .then(profile => {
             if (req.user && profile.owner == req.user.id) {
