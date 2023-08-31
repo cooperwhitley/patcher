@@ -1,5 +1,12 @@
+#header {
+    position: fixed;
+    top: 0;
+    z-index: 5000;
+}
+
 #header-nav {
     width: 100vw;
+    font-size: 3vmin;
     background-color: black;
     display: flex;
     justify-content: space-around;
@@ -24,7 +31,7 @@
     background-color: none;
     transition: color 300ms ease, background-color 300ms ease;
     max-height: 7vmin;
-    padding-top: 1.75vmin;
+    padding-top: 1vmin;
     padding-bottom: 3.5vmin;
     padding-left: 2vmin;
     padding-right: 2vmin;
