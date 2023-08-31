@@ -1,5 +1,6 @@
 const mongoose = require('../utils/connection')
 const commentSchema = require('./comment')
+const likeSchema = require('./like')
 const { Schema, model } = mongoose
 
 const postSchema = new Schema({
@@ -19,10 +20,7 @@ const postSchema = new Schema({
     spotify: {
         type: String
     },
-    likes: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+    likes: [{likeSchema}]
 }, { timestamps: true})
 
 const Post = model('Post', postSchema)
