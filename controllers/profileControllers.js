@@ -67,6 +67,7 @@ router.get('/:id', (req, res) => {
         .populate('endorsements.author')
         .then(profile => {
             Post.find({owner: profile.owner})
+                .populate('owner')
                 .then(posts => {
                     console.log('found this profile', profile)
                     console.log('and these posts', posts)
