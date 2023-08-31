@@ -17,13 +17,13 @@
 
 <p><%= profile.bio %></p>
 
-<% if (profile.owner?._id.equals(user?._id)) { %>
+<% if (user && profile.owner?._id.equals(user?._id)) { %>
     <a href="/profiles/edit/<%= profile._id %>"><button type="button" class="btn btn-success">edit profile</button></a>
 <% } %>
 
 <div class="card w-75">
     <% let alreadyEndorsed = false %>
-    <% if (profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
+    <% if (user && profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
     <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
         <form action="/endorsements/<%= profile._id %>" method="POST">
             <fieldset>
@@ -51,6 +51,7 @@
                 <% } %>
             </div>
         </div>
+        <br>
     <% }) %>
 <% } %>
 
@@ -59,6 +60,9 @@
         <div class="card-body">
             <h6 class="card-title"><%= post.title %></h6>
             <p class="card-text"><%= post.body %></p>
+            <% if (post.spotify) { %>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="50%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <% } %>
             <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
             <% if (post.owner?._id.equals(user?._id)) { %>
                 <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
@@ -67,6 +71,7 @@
             <% } %>
         </div>
     </div>
+    <br>
 <% }) %>
 
 <%- include('../partials/footer') %>
