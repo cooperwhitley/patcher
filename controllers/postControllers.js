@@ -50,6 +50,14 @@ router.delete('/:id', checkLogin, (req, res) => {
 // create
 
 router.post('/', checkLogin, (req, res) => {
+    if (req.body.spotify){ 
+        // ensure spotify links are formatted the same way
+        req.body.spotify = ( req.body.spotify.indexOf('spotify.com/') === -1 ) ? 'spotify.com/' + req.body.spotify : req.body.spotify
+        req.body.spotify = ( req.body.spotify.indexOf('open.') === -1 ) ? 'open.' + req.body.spotify : req.body.spotify
+        req.body.spotify = ( req.body.spotify.indexOf('://') === -1 ) ? 'https://' + req.body.spotify : req.body.spotify
+        // cut off all but the ending of the spotify link
+        req.body.spotify = req.body.spotify.split('').slice(25).join('')
+    }
     req.body.owner = req.user._id
     console.log(req.body)
     Post.create(req.body)
