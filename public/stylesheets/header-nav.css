@@ -7,7 +7,7 @@
 #header-nav {
     width: 100vw;
     font-size: 3vmin;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.60);
     display: flex;
     justify-content: space-around;
     align-items: center;
