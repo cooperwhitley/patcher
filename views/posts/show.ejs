@@ -1,50 +1,73 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
-<div class="card w-75">
-    <div class="card-body">
-        <img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture">
-        <a href="/profiles/<%= post.owner._id %>"><h5 class="card-title"><%= post.owner.name %></h5></a>
-        <h6 class="card-title"><%= post.title %></h6>
-        <p class="card-text"><%= post.body %></p>
-        <% if (post.spotify) { %>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="75%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <% } %>
-        <% if (post.owner?._id.equals(user?._id)) { %>
-            <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                <input type="submit" class="btn btn-danger" value="delete patch">
-            </form>
-        <% } %>
-    </div>
+
+<div>
+    <h1 id="patchbay-title">&nbsp;</h1>
 </div>
-<div class="card w-75">
-    <% if (user) { %>
-        <form action="/comments/<%= post._id %>" method="POST">
-            <fieldset>
-                <label class="form-label">add to this patch chain!</label>
-                <input type="text" class="form-control mb-1" name="note" maxlength="240" placeholder="comment">
-                <input type="submit" value="add patch" class="btn btn-success">
-            </fieldset>
-        </form>
-    <% } else { %>
-        <h5 class="card-title"><a href="/auth/google">log in</a> to join the conversation!</h5>
-    <% } %>
-</div>
-<% if (post.comments.length) { %>
-    <% post.comments.forEach(comment => { %>
-        <div class="card w-75">
-            <div class="card-body">
-                <img src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s profile picture">
-                <a href="/profiles/<%= comment.author._id %>"><h5 class="card-title"><%= comment.author.name %></h5></a>
-                <p class="card-text"><%= comment.note %></p>
-                <% if (comment.author?._id.equals(user?._id)) { %>
-                    <form action="/comments/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST">
-                        <input type="submit" class="btn btn-danger" value="delete patch">
-                    </form>
-                <% } %>
-            </div>
+
+<section class="post-list">
+    <div class="card">
+        <div class="card-body">
+            <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
+            <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+            <% let timeArr = post.createdAt.toString('') %>
+            <% timeArr = timeArr.split(' ').slice(0, 5) %>
+            <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
+            <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
+            <p class="timestamp"><%= timeStr %></p>
+            <p class="card-text post-body"><%= post.body %></p>
+            <% if (post.spotify) { %>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
+            <% } %>
+            <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">view patch chain</a>
+            <% if (user && !(post.likes.includes(user._id))) { %>
+                <form action="" method="POST"></form>
+            <% } %>
+            <% if (post.owner?._id.equals(user?._id)) { %>
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-post-btn">
+                    <input type="submit" class="btn btn-danger" value="delete patch">
+                </form>
+            <% } %>
         </div>
-    <% }) %>
-<% } %>
+    </div>
+
+    <div class="card">
+            <% if (user) { %>
+                <form action="/comments/<%= post._id %>" method="POST">
+                    <fieldset class="card-body">
+                        <label class="form-label comment-c2a">add to this patch chain!</label>
+                        <textarea name="note" class="form-control mb-1 comment-field" placeholder="comment" rows="3" maxlength="480"></textarea>
+                        <input type="submit" value="add patch" class="btn btn-success comment-btn">
+                    </fieldset>
+                </form>
+            <% } else { %>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/auth/google">log in</a> to join the conversation!</h5>
+                </div>
+            <% } %>
+    </div>
+    <% if (post.comments.length) { %>
+        <% post.comments.forEach(comment => { %>
+            <div class="card">
+                <div class="card-body">
+                    <a href="/profiles/<%= comment.author._id %>" class="post-pfp-link"><img src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s profile picture" class="post-pfp"></a>
+                    <a href="/profiles/<%= comment.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= comment.author.name %></h5></a>
+                    <p class="card-text post-body"><%= comment.note %></p>
+                    <% if (comment.author?._id.equals(user?._id)) { %>
+                        <form action="/comments/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST" class="delete-post-btn">
+                            <input type="submit" class="btn btn-danger" value="delete patch">
+                        </form>
+                    <% } %>
+                    <% let commTimeArr = comment.createdAt.toString('') %>
+                    <% commTimeArr = commTimeArr.split(' ').slice(0, 5) %>
+                    <% commTimeArr[4] = commTimeArr[4].split(':').slice(0, 2) %>
+                    <% commTimeStr = `${commTimeArr[2]} ${commTimeArr[1]} ${commTimeArr[3]} ${commTimeArr[4][0]}:${commTimeArr[4][1]}` %>
+                    <p class="timestamp"><%= commTimeStr %></p>
+                </div>
+            </div>
+        <% }) %>
+    <% } %>
+</section>
     
 <%- include('../partials/footer') %>
