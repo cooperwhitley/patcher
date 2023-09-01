@@ -12,7 +12,7 @@
 .card-body {
     display: grid;
     grid-template-columns: repeat(8, 10vmin);
-    grid-template-rows: repeat(2, 5vmin) repeat(2, 1fr) 5vmin;
+    grid-template-rows: repeat(2, 5vmin) repeat(2, auto) 5vmin;
 }
 
 .post-pfp{
@@ -31,6 +31,15 @@
     color: black;
 }
 
+.timestamp {
+    grid-area: 5 / 6 / 6 / 9;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin: 0;
+    padding: 0;
+    padding-right: .5vmin;
+}
+
 .poster-link {
     text-decoration: none;
     grid-area: 1 / 2 / 2 / 5;
@@ -40,6 +49,8 @@
 .post-body {
     grid-area: 3 / 1 / 4 / 9;
     padding-top: 1vmin;
+    padding-left: .5vmin;
+    padding-right: .5vmin;
 }
 
 .spotify-player {
@@ -52,6 +63,7 @@
     grid-area: 5 / 1 / 6 / 3;
     align-self: flex-end;
     justify-self: flex-start;
+    padding-left: .5vmin;
 }
 
 .post-btn {
@@ -75,9 +87,27 @@
 .delete-post-btn {
     grid-area: 1 / 7 / 2 / 9;
     align-self: center;
-    justify-self: center;
+    justify-self: flex-end;
+    margin-right: .5vmin;
 }
 
 .post-btn-text {
     margin-top: 1.5vmin;
+}
+
+.btn-danger {
+    font-weight: 100;
+}
+
+.comment-c2a {
+    grid-area: 1 / 1 / 2 / 5;
+    font-weight: bold;
+}
+
+.comment-field {
+    grid-area: 2 / 1 / 5 / 9;
+}
+
+.comment-btn {
+    grid-area: 5 / 7 / 6 / 9;
 }
