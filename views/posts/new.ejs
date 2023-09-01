@@ -1,13 +1,18 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
+<div>
+    <h1 id="patchbay-title">make a new patch</h1>
+</div>
+
 <div class="container-sm">
     <form action="/posts" method="POST">
         <fieldset>
-            <legend>new patch</legend>
-            <input type="text" name="title" placeholder="patch title" class="form-control">
-            <input type="text" name="spotify" class="form-control" placeholder="add spotify link starting after .com/">
-            <textarea name="body" class="form-control" placeholder="showcase your writing skills here" rows="5" maxlength="240"></textarea>
+            <br>
+            <textarea name="body" class="form-control" placeholder="showcase your writing skills here" rows="5" maxlength="480"></textarea>
+            <br>
+            <input type="text" name="spotify" class="form-control" placeholder="add spotify link">
+            <br>
             <input type="submit" value="patch it!" class="btn btn-success">
         </fieldset>
     </form>
