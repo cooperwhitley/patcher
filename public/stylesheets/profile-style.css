@@ -1,3 +1,105 @@
 .profile-info{
     display: grid;
+    width: 100vw;
+    height: 50vh;
+    grid-template-columns: repeat(8, 12.5vw);
+    grid-template-rows: repeat(10, 6.25vh);
+    margin-top: 10vmin;
+    margin-bottom: 15vmin;
 }
+
+.profile-avatar {
+    grid-area: 1 / 1 / 4 / 3;
+    width: 18.75vh;
+    border-radius: 50%;
+    border: .25vmin solid black;
+    align-self: center;
+    justify-self: flex-end;
+}
+
+.profile-name {
+    grid-area: 1 / 3 / 2 / 7;
+    align-self: center;
+    justify-self: flex-start;
+    margin: 0;
+    margin-left: .5vmin;
+    margin-top: .5vmin;
+}
+
+.profile-location {
+    grid-area: 2 / 3 / 3 / 7;
+    align-self: flex-end;
+    justify-self: flex-start;
+    margin-left: 1vmin;
+}
+
+.profile-jobs {
+    grid-area: 3 / 3 / 4 / 7;
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin: 0;
+    margin-left: 1vmin;
+    padding: 0;
+}
+
+.profile-jobs > li {
+    display: inline;
+
+}
+
+.profile-bio {
+    grid-area: 4 / 2 / 8 / 8;
+    margin-top: 1vmin;
+    text-align: justify;
+}
+
+.profile-edit {
+    grid-area: 1 / 7 / 2 / 8;
+    align-self: flex-start;
+    justify-self: flex-end;
+}
+
+.contact-header {
+    grid-area: 8 / 2 / 9 / 8;
+}
+
+.profile-links {
+    grid-area: 9 / 2 / 11 / 5;
+}
+
+.profile-links > a {
+    display: block;
+    font-size: 2vmin;
+}
+
+.profile-email {
+    grid-area: 9 / 5 / 11 / 8;
+    align-self: flex-start;
+    justify-self: flex-end;
+    font-size: 2vmin;
+}
+
+.profile-email-2 {
+    grid-area: 9 / 5 / 11 / 8;
+    align-self: flex-start;
+    justify-self: flex-end;
+    font-size: 2vmin;
+    margin-top: 3vmin;
+}
+
+.profile-phone-num {
+    grid-area: 9 / 5 / 11 / 8;
+    align-self: flex-start;
+    justify-self: flex-end;
+    font-size: 2vmin;
+    margin-top: 6vmin;
+}
+
+.endorsement-header {
+    align-self: center;
+    font-weight: bold;
+    letter-spacing: .25vmin;
+}
+
+
+
