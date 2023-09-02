@@ -5,24 +5,35 @@
 <div class="profile-info">
     <h1 class="profile-name"><%= profile.name %></h1>
     <img src="<%= profile.avatar %>" class="profile-avatar">
-    <h4 class="profile-jobs"><%= profile.jobs %></h4>
+    <ul class="profile-jobs">
+        <% profile.jobs.forEach(job => { %>
+            <% if (profile.jobs.indexOf(job) == profile.jobs.length - 1) { %>
+                <li class="profile-job-li"><%= job %></li>
+            <% } else { %>
+                <li class="profile-job-li"><%= job %>, </li>
+            <% } %>
+        <% }) %>
+    </ul>
     <h4 class="profile-location"><%= profile.location %></h4>
+    <h4 class="contact-header">get in touch with <%= profile.name %>:</h4>
     <h4 class="profile-email"><%= profile.email %></h4>
     <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
     <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+    <div class="profile-links">
+        <% profile.websites.forEach(website =>{ %>
+            <% if (website.length) { %>
+                <a href="<%= website %>" target="_blank"><%= website %></a>
+            <% } %>
+        <% }) %>
+    </div>
+    
+    <p class="profile-bio"><%= profile.bio %></p>
+    
+    <% if (user && profile.owner?._id.equals(user?._id)) { %>
+        <a href="/profiles/edit/<%= profile._id %>" class="profile-edit"><button type="button" class="btn btn-success">edit profile</button></a>
+    <% } %>
 </div>
 
-<% profile.websites.forEach(website =>{ %>
-    <% if (website.length) { %>
-        <a href="<%= website %>" target="_blank"><%= website %></a>
-    <% } %>
-<% }) %>
-
-<p><%= profile.bio %></p>
-
-<% if (user && profile.owner?._id.equals(user?._id)) { %>
-    <a href="/profiles/edit/<%= profile._id %>"><button type="button" class="btn btn-success">edit profile</button></a>
-<% } %>
 
 <div class="card">
     <% let alreadyEndorsed = false %>
@@ -40,15 +51,20 @@
     <% } %>
 </div>
 
-<h5><%= profile.name %>'s Endorsements</h5>
 
 <% if (profile.endorsements.length) { %>
     <section class="post-list">
-        <% profile.endorsements.forEach(endorsement => { %>
+        <h5 class="endorsement-header">here's what people are saying about <%= profile.name %></h5>
+        <% profile.endorsements.slice().reverse().forEach(endorsement => { %>
             <div class="card">
                 <div class="card-body">
                     <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.avatar %>" alt="<%= endorsement.author.name %>'s profile picture" class="post-pfp"></a>
                     <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.name %></h5></a>
+                    <% let timeArr = endorsement.createdAt.toString('') %>
+                    <% timeArr = timeArr.split(' ').slice(0, 5) %>
+                    <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
+                    <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
+                    <p class="timestamp"><%= timeStr %></p>
                     <p class="card-text post-body"><%= endorsement.note %></p>
                     <% if (endorsement.author?._id.equals(user?._id)) { %>
                         <form action="/endorsements/<%= profile._id %>/<%= endorsement._id %>?_method=DELETE" method="POST" class="delete-post-btn">
@@ -62,19 +78,28 @@
     </section>
 <% } %>
 
-<h5><%= profile.name %>'s Posts</h5>
 
 <section class="post-list">
-    <% posts.forEach(post => { %>
+    <h5 class="endorsement-header"><%= profile.name %>'s posts</h5>
+    <% posts.slice().reverse().forEach(post => { %>
         <div class="card">
             <div class="card-body">
                 <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
                 <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+                <% let timeArr = post.createdAt.toString('') %>
+                <% timeArr = timeArr.split(' ').slice(0, 5) %>
+                <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
+                <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
+                <p class="timestamp"><%= timeStr %></p>
                 <p class="card-text post-body"><%= post.body %></p>
                 <% if (post.spotify) { %>
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
                 <% } %>
-                <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">view patch chain</a>
+                <% if (post.comments.length) { %>
+                    <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">replies (<%= post.comments.length %>)</a>
+                <% } else { %>
+                    <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">replies</a>
+                <% } %>
                 <% if (user && !(post.likes.includes(user._id))) { %>
                     <form action="" method="POST"></form>
                 <% } %>
