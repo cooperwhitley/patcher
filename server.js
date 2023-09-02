@@ -26,6 +26,9 @@ middleware(app);
 app.get('/', (req, res) => {
     res.render('index', {title: 'patcher'})
 })
+app.get('/patchlist', (req, res) => {
+    res.render('patchlist/index', {title: 'patchlist-coming soon'})
+})
 app.use('/', authRouter)
 app.use('/posts/', postRouter)
 app.use('/profiles/', profileRouter)
