@@ -1,13 +1,16 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
-<img src="<%= profile.avatar %>">
-<h1><%= profile.name %></h1>
-<h4><%= profile.jobs %></h4>
-<h4><%= profile.location %></h4>
-<h4><%= profile.email %></h4>
-<h4><%= profile.secondEmail %></h4>
-<h4><%= profile.phoneNum %></h4>
+
+<div class="profile-info">
+    <h1 class="profile-name"><%= profile.name %></h1>
+    <img src="<%= profile.avatar %>" class="profile-avatar">
+    <h4 class="profile-jobs"><%= profile.jobs %></h4>
+    <h4 class="profile-location"><%= profile.location %></h4>
+    <h4 class="profile-email"><%= profile.email %></h4>
+    <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
+    <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+</div>
 
 <% profile.websites.forEach(website =>{ %>
     <% if (website.length) { %>
@@ -21,7 +24,7 @@
     <a href="/profiles/edit/<%= profile._id %>"><button type="button" class="btn btn-success">edit profile</button></a>
 <% } %>
 
-<div class="card w-75">
+<div class="card">
     <% let alreadyEndorsed = false %>
     <% if (user && profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
     <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
@@ -37,41 +40,52 @@
     <% } %>
 </div>
 
+<h5><%= profile.name %>'s Endorsements</h5>
+
 <% if (profile.endorsements.length) { %>
-    <% profile.endorsements.forEach(endorsement => { %>
-        <div class="card w-75">
+    <section class="post-list">
+        <% profile.endorsements.forEach(endorsement => { %>
+            <div class="card">
+                <div class="card-body">
+                    <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.avatar %>" alt="<%= endorsement.author.name %>'s profile picture" class="post-pfp"></a>
+                    <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.name %></h5></a>
+                    <p class="card-text post-body"><%= endorsement.note %></p>
+                    <% if (endorsement.author?._id.equals(user?._id)) { %>
+                        <form action="/endorsements/<%= profile._id %>/<%= endorsement._id %>?_method=DELETE" method="POST" class="delete-post-btn">
+                            <input type="submit" class="btn btn-danger" value="delete patch">
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <br>
+        <% }) %>
+    </section>
+<% } %>
+
+<h5><%= profile.name %>'s Posts</h5>
+
+<section class="post-list">
+    <% posts.forEach(post => { %>
+        <div class="card">
             <div class="card-body">
-                <img src="<%= endorsement.author.avatar %>" alt="<%= endorsement.author.name %>'s profile picture">
-                <a href="/profiles/<%= endorsement.author._id %>"><h5 class="card-title"><%= endorsement.author.name %></h5></a>
-                <p class="card-text"><%= endorsement.note %></p>
-                <% if (endorsement.author?._id.equals(user?._id)) { %>
-                    <form action="/endorsements/<%= profile._id %>/<%= endorsement._id %>?_method=DELETE" method="POST">
+                <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
+                <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+                <p class="card-text post-body"><%= post.body %></p>
+                <% if (post.spotify) { %>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
+                <% } %>
+                <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">view patch chain</a>
+                <% if (user && !(post.likes.includes(user._id))) { %>
+                    <form action="" method="POST"></form>
+                <% } %>
+                <% if (post.owner?._id.equals(user?._id)) { %>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-post-btn">
                         <input type="submit" class="btn btn-danger" value="delete patch">
                     </form>
                 <% } %>
             </div>
         </div>
-        <br>
     <% }) %>
-<% } %>
-
-<% posts.forEach(post => { %>
-    <div class="card w-75">
-        <div class="card-body">
-            <h6 class="card-title"><%= post.title %></h6>
-            <p class="card-text"><%= post.body %></p>
-            <% if (post.spotify) { %>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="50%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            <% } %>
-            <a href="/posts/<%= post._id %>" class="card-link">view patch chain</a>
-            <% if (post.owner?._id.equals(user?._id)) { %>
-                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                    <input type="submit" class="btn btn-danger" value="delete patch">
-                </form>
-            <% } %>
-        </div>
-    </div>
-    <br>
-<% }) %>
+</section>
 
 <%- include('../partials/footer') %>
