@@ -2,5 +2,18 @@
 <%- include('./partials/nav') %>
     <h1>welcome to</h1>
     <img id="index-logo" src="logo/patcher-logo-black.png">
+    <% if (user) { %>
+        <h1 style="margin-top: 1vmin;"><%= user.name %></h1>
+    <% } else { %>
+        <h1 style="margin-top: 1vmin;">browse around to see what people are up to on patcher, or log in to get started</h1>
+    <% } %>
+        
+    <% if (user) { %>
+        <p class="index-body">new here? now that you're logged in visit the patchbay to read what others are saying and add your voice to the mix, or visit your profile to add your info!</p>
+    <% } %>
+            
     <p class="index-body">patcher is a professional social network aimed at the audio industry. It aims to connect all of the disparate types of professionals in the industry with each other, in order to more easily find the right team of people for every project. Its other big aim is to lower the networking barrier of entry for a field that is overwhelmingly based on word of mouth, and consolidate industry professionals' portfolios on one platform.</p>
+    <p class="index-body">for more info and to view the source code of patcher, <a href="https://github.com/cooperwhitley/patcher" target="_blank" rel="noopener noreferrer">click here</a></p>
+
+
 <%- include('./partials/footer') %>
