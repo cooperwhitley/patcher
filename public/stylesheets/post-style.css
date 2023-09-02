@@ -18,6 +18,7 @@
 .post-pfp{
     height: 10vmin;
     border-radius: 50%;
+    border: .25vmin solid black;
 }
 
 .post-pfp-link {
