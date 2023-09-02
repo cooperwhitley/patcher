@@ -72,14 +72,14 @@
     font-size: 2vmin;
 }
 
-.profile-email {
+.profile-email-2 {
     grid-area: 9 / 5 / 11 / 8;
     align-self: flex-start;
     justify-self: flex-end;
     font-size: 2vmin;
 }
 
-.profile-email-2 {
+.profile-email {
     grid-area: 9 / 5 / 11 / 8;
     align-self: flex-start;
     justify-self: flex-end;

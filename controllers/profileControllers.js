@@ -27,6 +27,7 @@ router.patch('/:id', checkLogin, (req, res) => {
             req.body.websites[i] = ((req.body.websites[i].indexOf('://') === -1) && (req.body.websites[i].indexOf('mailto:') === -1) ) ? 'http://' + req.body.websites[i] : req.body.websites[i]
         }
     }
+    req.body.showGmail = (req.body.showGmail === 'yes') ? true : false
     Profile.Profile.findById(req.params.id)
         .then(profile => {
             if (req.user && profile.owner == req.user.id) {

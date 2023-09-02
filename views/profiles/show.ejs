@@ -16,7 +16,9 @@
     </ul>
     <h4 class="profile-location"><%= profile.location %></h4>
     <h4 class="contact-header">get in touch with <%= profile.name %>:</h4>
+    <% if (profile.showGmail) { %>
     <h4 class="profile-email"><%= profile.email %></h4>
+    <% } %>
     <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
     <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
     <div class="profile-links">

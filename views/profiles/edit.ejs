@@ -15,7 +15,11 @@
             <label class="form-label">google account email</label>
             <input type="text" value="<%= profile.email %>" class="form-control" disabled>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="showGmail">
+                <input class="form-check-input" type="checkbox" value="yes" id="flexCheckDefault" name="showGmail"
+                <% if (profile.showGmail) { %>
+                checked
+                <% } %>
+                >
                 <label class="form-check-label">
                   show google email on profile
                 </label>
