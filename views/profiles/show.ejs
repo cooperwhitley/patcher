@@ -20,7 +20,22 @@
     <h4 class="profile-email"><%= profile.email %></h4>
     <% } %>
     <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
-    <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+    <% if (profile.phoneNum.toString().length == 7) {%>
+        <% let phoneNum = profile.phoneNum.toString() %>
+        <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
+        <% let phoneChunk2 = phoneNum.split('').slice(3).join('') %>
+        <% let phoneStr = `${phoneChunk1}-${phoneChunk2}` %>
+        <h4 class="profile-phone-num"><%= phoneStr %></h4>
+    <% } else if (profile.phoneNum.toString().length == 10) { %>
+        <% let phoneNum = profile.phoneNum.toString() %>
+        <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
+        <% let phoneChunk2 = phoneNum.split('').slice(3, 6).join('') %>
+        <% let phoneChunk3 = phoneNum.split('').slice(6).join('') %>
+        <% let phoneStr = `(${phoneChunk1})${phoneChunk2}-${phoneChunk3}` %>
+        <h4 class="profile-phone-num"><%= phoneStr %></h4>
+    <% } else { %>
+        <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+    <% } %>
     <div class="profile-links">
         <% profile.websites.forEach(website =>{ %>
             <% if (website.length) { %>
@@ -82,7 +97,7 @@
 
 
 <section class="post-list">
-    <h5 class="endorsement-header"><%= profile.name %>'s posts</h5>
+    <h5 class="endorsement-header"><%= profile.name %>'s patches</h5>
     <% posts.slice().reverse().forEach(post => { %>
         <div class="card">
             <div class="card-body">
