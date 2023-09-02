@@ -12,6 +12,15 @@
             <label class="form-label">name</label>
             <input type="text" name="name" value="<%= profile.name %>" class="form-control">
             <br>
+            <label class="form-label">google account email</label>
+            <input type="text" value="<%= profile.email %>" class="form-control" disabled>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="showGmail">
+                <label class="form-check-label">
+                  show google email on profile
+                </label>
+              </div>
+            <br>
             <label class="form-label">secondary email</label>
             <input type="text" name="secondEmail" placeholder="secondary email" value="<%= profile.secondEmail %>" class="form-control">
             <br>
@@ -56,7 +65,7 @@
             </select>
             <br>
             <label class="form-label">bio</label>
-            <textarea name="bio" class="form-control" placeholder="bio" rows="5" maxlength="240"><%= profile.bio %></textarea>
+            <textarea name="bio" class="form-control" placeholder="bio" rows="5" maxlength="1000"><%= profile.bio %></textarea>
             <br>
             <input type="submit" value="update profile" class="btn btn-success">
         </fieldset>
