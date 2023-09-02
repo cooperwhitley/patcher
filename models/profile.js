@@ -52,6 +52,9 @@ const profileSchema = new Schema({
         type: String,
         required: true
     },
+    showGmail: {
+        type: Boolean
+    },
     secondEmail: {
         type: String
     },
