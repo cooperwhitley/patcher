@@ -16,7 +16,7 @@
 <% } %>
 
 <section class="post-list">
-    <% posts.forEach(post => { %>
+    <% posts.slice().reverse().forEach(post => { %>
         <div class="card">
             <div class="card-body">
                 <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
@@ -30,7 +30,11 @@
                 <% if (post.spotify) { %>
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
                 <% } %>
-                <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">view patch chain</a>
+                <% if (post.comments.length) { %>
+                <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">replies (<%= post.comments.length %>)</a>
+                <% } else { %>
+                    <a href="/posts/<%= post._id %>" class="card-link patch-chain-link">replies</a>
+                <% } %>
                 <% if (user && !(post.likes.includes(user._id))) { %>
                     <form action="" method="POST"></form>
                 <% } %>
