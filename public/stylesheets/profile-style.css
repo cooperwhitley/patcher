@@ -1,11 +1,10 @@
 .profile-info{
     display: grid;
     width: 100vw;
-    height: 50vh;
+    height: 62.5vh;
     grid-template-columns: repeat(8, 12.5vw);
     grid-template-rows: repeat(10, 6.25vh);
     margin-top: 10vmin;
-    margin-bottom: 15vmin;
 }
 
 .profile-avatar {
@@ -61,6 +60,7 @@
 
 .contact-header {
     grid-area: 8 / 2 / 9 / 8;
+    border-bottom: .25vmin solid black;
 }
 
 .profile-links {
@@ -99,6 +99,10 @@
     align-self: center;
     font-weight: bold;
     letter-spacing: .25vmin;
+    border-top: .25vmin solid black;
+    width: 75vw;
+    text-align: center;
+    padding-top: 2vmin;
 }
 
 
