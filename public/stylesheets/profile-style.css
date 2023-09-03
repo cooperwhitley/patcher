@@ -9,12 +9,12 @@
 }
 
 .profile-avatar {
-    grid-area: 1 / 1 / 4 / 3;
+    grid-area: 1 / 2 / 4 / 3;
     width: 18.75vh;
     border-radius: 50%;
     border: .25vmin solid black;
     align-self: center;
-    justify-self: flex-end;
+    justify-self: flex-start;
 }
 
 .profile-name {
