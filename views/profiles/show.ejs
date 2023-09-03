@@ -51,21 +51,24 @@
     <% } %>
 </div>
 
-
-<div class="card">
-    <% let alreadyEndorsed = false %>
-    <% if (user && profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
-    <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
-        <form action="/endorsements/<%= profile._id %>" method="POST">
-            <fieldset>
-                <label class="form-label">endorse <%= profile.name %></label>
-                <input type="text" class="form-control mb-1" name="note" maxlength="240" placeholder="endorsement">
-                <input type="submit" value="add endorsement" class="btn btn-success">
-            </fieldset>
-        </form>
-    <% } else if (!user) { %>
-        <h5 class="card-title"><a href="/auth/google">log in</a> to endorse <%= profile.name %>!</h5>
-    <% } %>
+<div class="post-list">
+    <div class="card">
+        <% let alreadyEndorsed = false %>
+        <% if (user && profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
+        <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
+            <form action="/endorsements/<%= profile._id %>" method="POST">
+                <fieldset class="card-body">
+                    <label class="form-label card-title comment-c2a">endorse <%= profile.name %></label>
+                    <textarea name="note" class="form-control mb-1 comment-field" placeholder="write a glowing recommendation here" rows="3" maxlength="480"></textarea>
+                    <input type="submit" value="add endorsement" class="btn btn-success comment-btn">
+                </fieldset>
+            </form>
+            <% } else if (!user) { %>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/auth/google">log in</a> to endorse <%= profile.name %>!</h5>
+                </div>
+            <% } %>
+    </div>
 </div>
 
 
