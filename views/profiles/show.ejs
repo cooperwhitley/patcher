@@ -20,21 +20,23 @@
     <h4 class="profile-email"><%= profile.email %></h4>
     <% } %>
     <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
-    <% if (profile.phoneNum.toString().length == 7) {%>
-        <% let phoneNum = profile.phoneNum.toString() %>
-        <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
-        <% let phoneChunk2 = phoneNum.split('').slice(3).join('') %>
-        <% let phoneStr = `${phoneChunk1}-${phoneChunk2}` %>
-        <h4 class="profile-phone-num"><%= phoneStr %></h4>
-    <% } else if (profile.phoneNum.toString().length == 10) { %>
-        <% let phoneNum = profile.phoneNum.toString() %>
-        <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
-        <% let phoneChunk2 = phoneNum.split('').slice(3, 6).join('') %>
-        <% let phoneChunk3 = phoneNum.split('').slice(6).join('') %>
-        <% let phoneStr = `(${phoneChunk1})${phoneChunk2}-${phoneChunk3}` %>
-        <h4 class="profile-phone-num"><%= phoneStr %></h4>
-    <% } else { %>
-        <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+    <% if (profile.phoneNum) { %>
+        <% if ( profile.phoneNum.toString().length == 7) {%>
+            <% let phoneNum = profile.phoneNum.toString() %>
+            <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
+            <% let phoneChunk2 = phoneNum.split('').slice(3).join('') %>
+            <% let phoneStr = `${phoneChunk1}-${phoneChunk2}` %>
+            <h4 class="profile-phone-num"><%= phoneStr %></h4>
+        <% } else if (profile.phoneNum.toString().length == 10) { %>
+            <% let phoneNum = profile.phoneNum.toString() %>
+            <% let phoneChunk1 = phoneNum.split('').slice(0, 3).join('') %>
+            <% let phoneChunk2 = phoneNum.split('').slice(3, 6).join('') %>
+            <% let phoneChunk3 = phoneNum.split('').slice(6).join('') %>
+            <% let phoneStr = `(${phoneChunk1}) ${phoneChunk2}-${phoneChunk3}` %>
+            <h4 class="profile-phone-num"><%= phoneStr %></h4>
+        <% } else { %>
+            <h4 class="profile-phone-num"><%= profile.phoneNum %></h4>
+        <% } %>
     <% } %>
     <div class="profile-links">
         <% profile.websites.forEach(website =>{ %>
