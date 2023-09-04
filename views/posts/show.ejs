@@ -9,8 +9,8 @@
 <section class="post-list">
     <div class="card">
         <div class="card-body">
-            <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
-            <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+            <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.profile.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
+            <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.profile.name %></h5></a>
             <% let timeArr = post.createdAt.toString('') %>
             <% timeArr = timeArr.split(' ').slice(0, 5) %>
             <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
