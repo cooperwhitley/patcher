@@ -32,6 +32,20 @@
     color: black;
 }
 
+.post-jobs {
+    grid-area: 2 / 2 / 3 / 8;
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin: 0;
+    margin-left: 1vmin;
+    padding: 0;
+}
+
+.post-jobs > li {
+    display: inline;
+
+}
+
 .timestamp {
     grid-area: 5 / 6 / 6 / 9;
     align-self: flex-end;
