@@ -11,7 +11,13 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
     Post.find({})
-        .populate('owner')
+        .populate({
+            path: 'owner',
+            populate: {
+                path: 'profile',
+                model: 'Profile'
+            }
+        })
         .then(posts => {
             console.log('found these posts', posts)
             res.render('posts/index', {posts: posts, title: 'patchbay'})
@@ -78,7 +84,24 @@ router.post('/', checkLogin, (req, res) => {
 
 router.get('/:id', (req, res) => {
     Post.findById(req.params.id)
-        .populate('owner')
+        .populate({
+            path: 'owner',
+            populate: {
+                path: 'profile',
+                model: 'Profile'
+            }
+        })
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'author',
+                model: 'User',
+                populate: {
+                    path: 'profile',
+                    model: 'Profile'
+                }
+            }
+        })
         .populate('comments.author')
         .then(post => {
             console.log('found this post', post)
