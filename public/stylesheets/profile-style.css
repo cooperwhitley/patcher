@@ -9,7 +9,9 @@
 
 .profile-avatar {
     grid-area: 1 / 2 / 4 / 3;
-    width: 18.75vh;
+    object-fit: cover;
+    width: 18.75vmin;
+    height: 18.75vmin;
     border-radius: 50%;
     border: .25vmin solid black;
     align-self: center;

@@ -16,7 +16,9 @@
 }
 
 .post-pfp{
+    object-fit: cover;
     height: 10vmin;
+    width: 10vmin;
     border-radius: 50%;
     border: .25vmin solid black;
 }
