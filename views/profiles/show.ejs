@@ -56,7 +56,7 @@
 <div class="post-list">
     <div class="card">
         <% let alreadyEndorsed = false %>
-        <% if (user && profile.endorsements.some(e => e.author == user._id)) { alreadyEndorsed = true } %>
+        <% if (user && profile.endorsements.some(e => e.author._id == user.id)) { alreadyEndorsed = true } %>
         <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
             <form action="/endorsements/<%= profile._id %>" method="POST">
                 <fieldset class="card-body">
@@ -80,8 +80,8 @@
         <% profile.endorsements.slice().reverse().forEach(endorsement => { %>
             <div class="card">
                 <div class="card-body">
-                    <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.avatar %>" alt="<%= endorsement.author.name %>'s profile picture" class="post-pfp"></a>
-                    <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.name %></h5></a>
+                    <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.profile.avatar %>" alt="<%= endorsement.author.profile.name %>'s profile picture" class="post-pfp"></a>
+                    <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.profile.name %></h5></a>
                     <% let timeArr = endorsement.createdAt.toString('') %>
                     <% timeArr = timeArr.split(' ').slice(0, 5) %>
                     <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
@@ -106,8 +106,8 @@
     <% posts.slice().reverse().forEach(post => { %>
         <div class="card">
             <div class="card-body">
-                <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
-                <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.name %></h5></a>
+                <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= profile.avatar %>" alt="<%= profile.name %>'s profile picture" class="post-pfp"></a>
+                <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= profile.name %></h5></a>
                 <% let timeArr = post.createdAt.toString('') %>
                 <% timeArr = timeArr.split(' ').slice(0, 5) %>
                 <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
