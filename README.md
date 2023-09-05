@@ -88,10 +88,6 @@ As a user I want to...
 - view find a team page
 - view personal profile
 
-#### Completed
-
-#### To Do
-
 #### Ice Box
 
 - add portfolio section to profiles
@@ -104,6 +100,13 @@ As a user I want to...
 - add ability to pin posts/skills/classifications to top of profile
 - add dating app style interface for finding people
 - expand to other parts of the entertainment industry (video, lighting, etc.)
+
+#### Completed
+- registration and profile configuration
+- making a post
+- site navigation
+- endorsements
+- comments
 
 ## Diagrams
 
