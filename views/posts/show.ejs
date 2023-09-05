@@ -11,6 +11,17 @@
         <div class="card-body">
             <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.profile.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
             <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.profile.name %></h5></a>
+            <% if ( post.owner.profile.jobs ) { %>
+                <ul class="post-jobs">
+                    <% post.owner.profile.jobs.forEach(job => { %>
+                        <% if (post.owner.profile.jobs.indexOf(job) == post.owner.profile.jobs.length - 1) { %>
+                            <li class="post-job-li"><%= job %></li>
+                        <% } else { %>
+                            <li class="post-job-li"><%= job %>, </li>
+                        <% } %>
+                    <% }) %>
+                </ul>
+            <% } %>
             <% let timeArr = post.createdAt.toString('') %>
             <% timeArr = timeArr.split(' ').slice(0, 5) %>
             <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
@@ -51,8 +62,19 @@
         <% post.comments.forEach(comment => { %>
             <div class="card">
                 <div class="card-body">
-                    <a href="/profiles/<%= comment.author._id %>" class="post-pfp-link"><img src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s profile picture" class="post-pfp"></a>
-                    <a href="/profiles/<%= comment.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= comment.author.name %></h5></a>
+                    <a href="/profiles/<%= comment.author._id %>" class="post-pfp-link"><img src="<%= comment.author.profile.avatar %>" alt="<%= comment.author.profile.name %>'s profile picture" class="post-pfp"></a>
+                    <a href="/profiles/<%= comment.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= comment.author.profile.name %></h5></a>
+                    <% if ( comment.author.profile.jobs ) { %>
+                        <ul class="post-jobs">
+                            <% comment.author.profile.jobs.forEach(job => { %>
+                                <% if (comment.author.profile.jobs.indexOf(job) == comment.author.profile.jobs.length - 1) { %>
+                                    <li class="post-job-li"><%= job %></li>
+                                <% } else { %>
+                                    <li class="post-job-li"><%= job %>, </li>
+                                <% } %>
+                            <% }) %>
+                        </ul>
+                    <% } %>
                     <p class="card-text post-body"><%= comment.note %></p>
                     <% if (comment.author?._id.equals(user?._id)) { %>
                         <form action="/comments/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST" class="delete-post-btn">
