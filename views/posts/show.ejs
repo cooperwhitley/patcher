@@ -6,12 +6,15 @@
     <h1 id="patchbay-title">&nbsp;</h1>
 </div>
 
+
 <section class="post-list">
+    <!-- start post -->
     <div class="card">
         <div class="card-body">
             <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.profile.avatar %>" alt="<%= post.owner.name %>'s profile picture" class="post-pfp"></a>
             <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.profile.name %></h5></a>
             <% if ( post.owner.profile.jobs ) { %>
+                <!-- change job list for post author into list string -->
                 <ul class="post-jobs">
                     <% post.owner.profile.jobs.forEach(job => { %>
                         <% if (post.owner.profile.jobs.indexOf(job) == post.owner.profile.jobs.length - 1) { %>
@@ -22,8 +25,10 @@
                     <% }) %>
                 </ul>
             <% } %>
+            <!-- reformat timestamp to trim extraneous information and improve aesthetic presentation -->
             <% let timeArr = post.createdAt.toString('') %>
             <% timeArr = timeArr.split(' ').slice(0, 5) %>
+            <!-- remove seconds from time -->
             <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
             <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
             <p class="timestamp"><%= timeStr %></p>
@@ -42,7 +47,7 @@
             <% } %>
         </div>
     </div>
-
+    <!-- start comment shoutbox -->
     <div class="card">
             <% if (user) { %>
                 <form action="/comments/<%= post._id %>" method="POST">
@@ -58,6 +63,7 @@
                 </div>
             <% } %>
     </div>
+    <!-- start comments display -->
     <% if (post.comments.length) { %>
         <% post.comments.forEach(comment => { %>
             <div class="card">
@@ -66,6 +72,7 @@
                     <a href="/profiles/<%= comment.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= comment.author.profile.name %></h5></a>
                     <% if ( comment.author.profile.jobs ) { %>
                         <ul class="post-jobs">
+                            <!-- change job list for comment author into list string -->
                             <% comment.author.profile.jobs.forEach(job => { %>
                                 <% if (comment.author.profile.jobs.indexOf(job) == comment.author.profile.jobs.length - 1) { %>
                                     <li class="post-job-li"><%= job %></li>
@@ -81,8 +88,10 @@
                             <input type="submit" class="btn btn-danger" value="delete patch">
                         </form>
                     <% } %>
+                    <!-- reformat timestamp to trim extraneous information and improve aesthetic presentation -->
                     <% let commTimeArr = comment.createdAt.toString('') %>
                     <% commTimeArr = commTimeArr.split(' ').slice(0, 5) %>
+                    <!-- remove seconds from time -->
                     <% commTimeArr[4] = commTimeArr[4].split(':').slice(0, 2) %>
                     <% commTimeStr = `${commTimeArr[2]} ${commTimeArr[1]} ${commTimeArr[3]} ${commTimeArr[4][0]}:${commTimeArr[4][1]}` %>
                     <p class="timestamp"><%= commTimeStr %></p>

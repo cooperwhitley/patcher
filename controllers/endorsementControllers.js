@@ -10,6 +10,7 @@ router.post('/:profileId', checkLogin, (req, res) => {
 
     req.body.author = req.user._id
     Profile.Profile.findById(req.params.profileId)
+        // we are saving endorsements directly to the profile, as it is unnecessary to save them as distinct objects, much like the comment => post relationship
         .then(profile => {
             profile.endorsements.push(req.body)
 

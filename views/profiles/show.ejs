@@ -2,6 +2,8 @@
 <%- include('../partials/nav') %>
 
 
+<!-- profile info starts here -->
+
 <div class="profile-info">
     <h1 class="profile-name"><%= profile.name %></h1>
     <img src="<%= profile.avatar %>" class="profile-avatar">
@@ -17,9 +19,10 @@
     <h4 class="profile-location"><%= profile.location %></h4>
     <h4 class="contact-header">get in touch with <%= profile.name %>:</h4>
     <% if (profile.showGmail) { %>
-    <h4 class="profile-email"><%= profile.email %></h4>
+    <h4 class="profile-email"><a href="mailto:<%= profile.email %>"><%= profile.email %></a></h4>
     <% } %>
-    <h4 class="profile-email-2"><%= profile.secondEmail %></h4>
+    <h4 class="profile-email-2"><a href="mailto:<%= profile.secondEmail %>"><%= profile.secondEmail %></a></h4>
+    <!-- format phone number based off number of digits -->
     <% if (profile.phoneNum) { %>
         <% if ( profile.phoneNum.toString().length == 7) {%>
             <% let phoneNum = profile.phoneNum.toString() %>
@@ -53,9 +56,13 @@
     <% } %>
 </div>
 
+<!-- endorsement shoutbox starts here -->
+
 <div class="post-list">
     <% let alreadyEndorsed = false %>
+    <!-- check if any endorsements are authored by the currently logged in user -->
     <% if (user && profile.endorsements.some(e => e.author._id == user.id)) { alreadyEndorsed = true } %>
+    <!-- if currently logged in user hasn't endorsed this profile, show them a form to do so -->
     <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
         <div class="card">
             <form action="/endorsements/<%= profile._id %>" method="POST">
@@ -72,15 +79,19 @@
 </div>
 
 
+<!-- endorsement list starts here -->
+
 <% if (profile.endorsements.length) { %>
     <section class="post-list">
         <h5 class="endorsement-header">here's what people are saying about <%= profile.name %></h5>
+        <!-- make shallow copy of endorsements array and then reverse it to show in reverse chronological order -->
         <% profile.endorsements.slice().reverse().forEach(endorsement => { %>
             <div class="card">
                 <div class="card-body">
                     <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.profile.avatar %>" alt="<%= endorsement.author.profile.name %>'s profile picture" class="post-pfp"></a>
                     <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.profile.name %></h5></a>
                     <% if ( endorsement.author.profile.jobs ) { %>
+                        <!-- change job list for endorsement author into list string -->
                         <ul class="post-jobs">
                             <% endorsement.author.profile.jobs.forEach(job => { %>
                                 <% if (endorsement.author.profile.jobs.indexOf(job) == endorsement.author.profile.jobs.length - 1) { %>
@@ -91,8 +102,10 @@
                             <% }) %>
                         </ul>
                     <% } %>
+                    <!-- reformat timestamp to trim extraneous information and improve aesthetic presentation -->
                     <% let timeArr = endorsement.createdAt.toString('') %>
                     <% timeArr = timeArr.split(' ').slice(0, 5) %>
+                    <!-- remove seconds from time -->
                     <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
                     <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
                     <p class="timestamp"><%= timeStr %></p>
@@ -109,6 +122,7 @@
     </section>
 <% } %>
 
+<!-- list of profile owner's posts starts here -->
 
 <section class="post-list">
     <h5 class="endorsement-header"><%= profile.name %>'s patches</h5>
@@ -118,6 +132,7 @@
                 <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= profile.avatar %>" alt="<%= profile.name %>'s profile picture" class="post-pfp"></a>
                 <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= profile.name %></h5></a>
                 <% if ( profile.jobs ) { %>
+                    <!-- change job list for endorsement author into list string -->
                     <ul class="post-jobs">
                         <% profile.jobs.forEach(job => { %>
                             <% if (profile.jobs.indexOf(job) == profile.jobs.length - 1) { %>
@@ -128,16 +143,20 @@
                         <% }) %>
                     </ul>
                 <% } %>
+                <!-- reformat timestamp to trim extraneous information and improve aesthetic presentation -->
                 <% let timeArr = post.createdAt.toString('') %>
                 <% timeArr = timeArr.split(' ').slice(0, 5) %>
+                <!-- remove seconds from time -->
                 <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
                 <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
                 <p class="timestamp"><%= timeStr %></p>
                 <p class="card-text post-body"><%= post.body %></p>
                 <% if (post.spotify) { %>
+                    <!-- this uses spotify's embed code but injects post spotify link -->
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/<%= post.spotify %>?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" class="spotify-player"></iframe>
                 <% } %>
                 <% if (post.comments.length) { %>
+                    <!-- change contextual comment link to react to number of comments -->
                     <% if (post.comments.length > 1) { %>
                         <a href="/posts/<%= post._id %>" class="card-link patch-chain-link"><%= post.comments.length %> replies</a>
                     <% } else { %>

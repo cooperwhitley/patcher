@@ -3,6 +3,9 @@ const endorsementSchema = require('./endorsement')
 
 const { Schema, model } = mongoose
 
+
+// storing these as independent variables so that they can be used to enumerate profile edit choices, as well as later on for qualified search
+// preventing me from having to update this in all applicable places
 const jobList = [
     'studio engineer',
     'live engineer',

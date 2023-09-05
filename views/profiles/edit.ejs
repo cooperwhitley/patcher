@@ -51,6 +51,7 @@
             <br>
             <label class="form-label">jobs (control click to select multiple)</label>
             <select name="jobs" class="form-select" multiple>
+                <!-- check job list and set those as selected already -->
                 <% jobList.forEach(job => { %>
                     <option 
                     value="<%= job %>"

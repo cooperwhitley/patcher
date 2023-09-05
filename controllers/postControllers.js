@@ -11,6 +11,7 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
     Post.find({})
+        // nested populate to grab post author profile info
         .populate({
             path: 'owner',
             populate: {
@@ -57,11 +58,11 @@ router.delete('/:id', checkLogin, (req, res) => {
 
 router.post('/', checkLogin, (req, res) => {
     if (req.body.spotify){ 
-        // ensure spotify links are formatted the same way
+        // ensure spotify links are formatted the same way before storing
         req.body.spotify = ( req.body.spotify.indexOf('spotify.com/') === -1 ) ? 'spotify.com/' + req.body.spotify : req.body.spotify
         req.body.spotify = ( req.body.spotify.indexOf('open.') === -1 ) ? 'open.' + req.body.spotify : req.body.spotify
         req.body.spotify = ( req.body.spotify.indexOf('://') === -1 ) ? 'https://' + req.body.spotify : req.body.spotify
-        // cut off all but the ending of the spotify link
+        // cut off all but the ending of the spotify link as it is the only needed information for grabbing a specific item for embed
         req.body.spotify = req.body.spotify.split('').slice(25).join('')
     }
     req.body.owner = req.user._id
@@ -84,6 +85,7 @@ router.post('/', checkLogin, (req, res) => {
 
 router.get('/:id', (req, res) => {
     Post.findById(req.params.id)
+        // populate post owner profile
         .populate({
             path: 'owner',
             populate: {
@@ -91,6 +93,7 @@ router.get('/:id', (req, res) => {
                 model: 'Profile'
             }
         })
+        // populate comment owner profile
         .populate({
             path: 'comments',
             populate: {

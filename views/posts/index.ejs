@@ -16,12 +16,14 @@
 <% } %>
 
 <section class="post-list">
+    <!-- make shallow copy of posts array and then reverse it to show in reverse chronological order -->
     <% posts.slice().reverse().forEach(post => { %>
         <div class="card">
             <div class="card-body">
                 <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= post.owner.profile.avatar %>" alt="<%= post.owner.profile.name %>'s profile picture" class="post-pfp"></a>
                 <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= post.owner.profile.name %></h5></a>
                 <% if ( post.owner.profile.jobs ) { %>
+                    <!-- change job list for post author into list string -->
                     <ul class="post-jobs">
                         <% post.owner.profile.jobs.forEach(job => { %>
                             <% if (post.owner.profile.jobs.indexOf(job) == post.owner.profile.jobs.length - 1) { %>
@@ -32,8 +34,10 @@
                         <% }) %>
                     </ul>
                 <% } %>
+                <!-- reformat timestamp to trim extraneous information and improve aesthetic presentation -->
                 <% let timeArr = post.createdAt.toString('') %>
                 <% timeArr = timeArr.split(' ').slice(0, 5) %>
+                <!-- remove seconds from time -->
                 <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
                 <% timeStr = `${timeArr[2]} ${timeArr[1]} ${timeArr[3]} ${timeArr[4][0]}:${timeArr[4][1]}` %>
                 <p class="timestamp"><%= timeStr %></p>

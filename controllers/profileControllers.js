@@ -22,11 +22,13 @@ const router = express.Router()
 // update
 
 router.patch('/:id', checkLogin, (req, res) => {
+    // ensure linked website has http at the beginning in order to make it a functioning link
     for (i = 0; i < req.body.websites.length; i++) {
         if (req.body.websites[i].length){ 
             req.body.websites[i] = ((req.body.websites[i].indexOf('://') === -1) && (req.body.websites[i].indexOf('mailto:') === -1) ) ? 'http://' + req.body.websites[i] : req.body.websites[i]
         }
     }
+    // change show gmail textbox to be a boolean value
     req.body.showGmail = (req.body.showGmail === 'yes') ? true : false
     Profile.Profile.findById(req.params.id)
         .then(profile => {
@@ -65,6 +67,7 @@ router.get('/edit/:id', checkLogin, (req, res) => {
 
 router.get('/:id', (req, res) => {
     Profile.Profile.findOne({owner: req.params.id})
+        // nested populate so we can grab profile info for endorsers
         .populate({
             path: 'endorsements',
             populate: {

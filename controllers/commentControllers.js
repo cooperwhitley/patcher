@@ -7,9 +7,9 @@ const checkLogin = require('../utils/ensureLoggedIn')
 const router = express.Router()
 
 router.post('/:postId', checkLogin, (req, res) => {
-
     req.body.author = req.user._id
     Post.findById(req.params.postId)
+        // save comment to post itself, as it does not need to be a separate entity
         .then(post => {
             post.comments.push(req.body)
 
