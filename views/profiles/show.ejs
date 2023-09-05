@@ -54,10 +54,10 @@
 </div>
 
 <div class="post-list">
-    <div class="card">
-        <% let alreadyEndorsed = false %>
-        <% if (user && profile.endorsements.some(e => e.author._id == user.id)) { alreadyEndorsed = true } %>
-        <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
+    <% let alreadyEndorsed = false %>
+    <% if (user && profile.endorsements.some(e => e.author._id == user.id)) { alreadyEndorsed = true } %>
+    <% if (user && user.id != profile.owner && !alreadyEndorsed) { %>
+        <div class="card">
             <form action="/endorsements/<%= profile._id %>" method="POST">
                 <fieldset class="card-body">
                     <label class="form-label card-title comment-c2a">endorse <%= profile.name %></label>
@@ -65,12 +65,10 @@
                     <input type="submit" value="add endorsement" class="btn btn-success comment-btn">
                 </fieldset>
             </form>
-            <% } else if (!user) { %>
-                <div class="card-body">
-                    <h5 class="card-title"><a href="/auth/google">log in</a> to endorse <%= profile.name %>!</h5>
-                </div>
-            <% } %>
-    </div>
+        </div>
+    <% } else if (!user) { %>
+        <h5 class="endorsement-header"><a href="/auth/google">log in</a> to endorse <%= profile.name %>!</h5>
+    <% } %>
 </div>
 
 
