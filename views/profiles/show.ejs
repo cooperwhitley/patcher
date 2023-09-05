@@ -82,6 +82,17 @@
                 <div class="card-body">
                     <a href="/profiles/<%= endorsement.author._id %>" class="post-pfp-link"><img src="<%= endorsement.author.profile.avatar %>" alt="<%= endorsement.author.profile.name %>'s profile picture" class="post-pfp"></a>
                     <a href="/profiles/<%= endorsement.author._id %>" class="poster-link"><h5 class="card-title poster-name"><%= endorsement.author.profile.name %></h5></a>
+                    <% if ( endorsement.author.profile.jobs ) { %>
+                        <ul class="post-jobs">
+                            <% endorsement.author.profile.jobs.forEach(job => { %>
+                                <% if (endorsement.author.profile.jobs.indexOf(job) == endorsement.author.profile.jobs.length - 1) { %>
+                                    <li class="post-job-li"><%= job %></li>
+                                <% } else { %>
+                                    <li class="post-job-li"><%= job %>, </li>
+                                <% } %>
+                            <% }) %>
+                        </ul>
+                    <% } %>
                     <% let timeArr = endorsement.createdAt.toString('') %>
                     <% timeArr = timeArr.split(' ').slice(0, 5) %>
                     <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
@@ -108,6 +119,17 @@
             <div class="card-body">
                 <a href="/profiles/<%= post.owner._id %>" class="post-pfp-link"><img src="<%= profile.avatar %>" alt="<%= profile.name %>'s profile picture" class="post-pfp"></a>
                 <a href="/profiles/<%= post.owner._id %>" class="poster-link"><h5 class="card-title poster-name"><%= profile.name %></h5></a>
+                <% if ( profile.jobs ) { %>
+                    <ul class="post-jobs">
+                        <% profile.jobs.forEach(job => { %>
+                            <% if (profile.jobs.indexOf(job) == profile.jobs.length - 1) { %>
+                                <li class="post-job-li"><%= job %></li>
+                            <% } else { %>
+                                <li class="post-job-li"><%= job %>, </li>
+                            <% } %>
+                        <% }) %>
+                    </ul>
+                <% } %>
                 <% let timeArr = post.createdAt.toString('') %>
                 <% timeArr = timeArr.split(' ').slice(0, 5) %>
                 <% timeArr[4] = timeArr[4].split(':').slice(0, 2) %>
